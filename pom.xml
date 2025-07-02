@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+  http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<!-- 因为引用 apache-2.0, 所以在创建项目之中必须在显眼地方附带上开源声明 -->
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <!-- 常规的包信息 -->
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.meteorcat.fusion</groupId>
+    <artifactId>fusion-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <!-- 详情信息 -->
+    <name>Fusion :</name>
+    <packaging>pom</packaging>
+    <url>https://www.meteorcat.net/tags/flink/</url>
+    <inceptionYear>2025</inceptionYear>
+
+
+    <!-- 开源许可 -->
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <!-- 源代码信息 -->
+    <scm>
+        <url>https://github.com/MeteorGX/fusion-parent</url> <!-- 源代码管理地址 -->
+        <connection>git@github.com:MeteorGX/fusion-parent.git</connection> <!-- 源代码公共管理仓库 -->
+        <developerConnection>scm:git:https://github.com/MeteorGX/fusion-parent.git</developerConnection>
+    </scm>
+
+
+    <!-- 远程项目依赖, 也就是第三方包会优先从这些第三方获取依赖项 -->
+    <!-- 注: 因为中国特殊的网络原因, 所以有时候第三方拉取会报错-->
+    <repositories>
+        <repository>
+            <id>redhat</id>
+            <url>https://maven.repository.redhat.com/ga/</url>
+        </repository>
+
+        <repository>
+            <id>repository.jboss.org</id>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+    </repositories>
+
+
+    <!-- POM子项目依赖 -->
+    <modules>
+        <!-- 这里的子库省略等后续展开说明 -->
+    </modules>
+
+
+    <!-- 全局的 Maven 属性定义 -->
+    <properties>
+        <!-- 比较常规的字符集声明 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- Java平台版本声明, 这里我直接采用 Java17LTS 构建 -->
+        <source.java.version>17</source.java.version><!-- 编译选择的版本 -->
+        <target.java.version>17</target.java.version><!-- 运行生成的版本 -->
+        <maven.compiler.source>${target.java.version}</maven.compiler.source>
+        <maven.compiler.target>${target.java.version}</maven.compiler.target>
+
+
+        <!-- 日志库版本锁定 -->
+        <!-- Java日志 Facade 和实现 -->
+        <slf4j.version>2.0.17</slf4j.version>
+        <log4j.version>2.25.0</log4j.version>
+
+        <!-- 引入 scala 方便支持 actor 组件 -->
+        <!-- 这里我主要参照 pekko 官方处理: https://pekko.apache.org/docs/pekko/current/typed/guide/tutorial_1.html -->
+        <!-- 还有结合 scala 官方文档的配置: https://docs.scala-lang.org/tutorials/scala-with-maven.html -->
+        <scala.version>2.13</scala.version>
+        <scala.binary.version>2.13</scala.binary.version>
+        <scala.test.version>3.2.19</scala.test.version>
+
+        <!-- 引入测试单元框架 -->
+        <!-- 这里锁定官方比较多人用的 JUint5, 抛弃 flink 内部支持的 JUint4: https://github.com/junit-team/junit-framework/ -->
+        <!-- 这里可以查询锁定比较多人用且没有漏洞的版本: https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+        <junit5.version>5.13.2</junit5.version>
+
+
+        <!-- 这里我是采用本地个人开发, 所以不配置 spotless 的代码风格统一检查 -->
+    </properties>
+
+    <!-- 通用的第三方依赖库 -->
+    <dependencies>
+
+        <!-- Logging 基础 API -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+
+        <!-- JUint的核心模块 -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- JUint的测试调度模块 -->
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- 把 slf4j 日志连接到 log4j 实现, scope 则是声明限定为 test 测试框架之中 -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- log4j 核心框架接口实现, 提供基础的抽象通用功能接口实现, scope 则是声明限定为 test 测试框架之中 -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- log4j 核心的基础模块, scope 则是声明限定为 test 测试框架之中 -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+
+    <!-- 第三方的包版本控制, 用来定义锁定包版本 -->
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-slf4j-impl</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-layout-template-json</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+
+            <!-- For dependency convergence -->
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>${junit5.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.scala-lang</groupId>
+                <artifactId>scala-library</artifactId>
+                <version>${scala.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.scala-lang</groupId>
+                <artifactId>scala-reflect</artifactId>
+                <version>${scala.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.scala-lang</groupId>
+                <artifactId>scala-compiler</artifactId>
+                <version>${scala.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.scalatest</groupId>
+                <artifactId>scalatest_${scala.binary.version}</artifactId>
+                <version>${scala.test.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+
+    <!-- 打包设置 -->
+    <build>
+
+        <!-- 插件引入 -->
+        <plugins>
+            <!-- 编译插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+
+        </plugins>
+
+
+        <!-- 插件库版本锁定 -->
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.0</version>
+                    <configuration>
+                        <source>${source.java.version}</source>
+                        <target>${target.java.version}</target>
+                        <!-- 是否启动增量编译(false或者不配置默认就是禁用), 虽然能够减少编译时间, 但是有时候莫名其妙会导致编译少了东西 -->
+                        <useIncrementalCompilation>false</useIncrementalCompilation>
+                        <compilerArgs>
+                            <arg>-Xpkginfo:always</arg>
+                            <!-- 用来避免Java9以上的反射模块在调用内部包是否的权限问题 -->
+                            <!-- JDK9(java.management|java.rmi 等)默认对内部包(以 sun. 或 com.sun. 开头)进行封装, 外部代码无法通过反射、类加载等方式访问, 否则会抛出权限异常 -->
+                            <!-- 注: 许多第三方库|框架|旧代码等 hook 监控工具依赖于 JDK 内部 API, 如果没有加入这种配置可能会导致权限不足报错 -->
+                            <arg>--add-exports=java.management/sun.management=ALL-UNNAMED</arg>
+                            <arg>--add-exports=java.rmi/sun.rmi.registry=ALL-UNNAMED</arg>
+                            <arg>--add-exports=java.security.jgss/sun.security.krb5=ALL-UNNAMED</arg>
+                        </compilerArgs>
+                    </configuration>
+                </plugin>
+            </plugins>
+
+        </pluginManagement>
+    </build>
+
+</project>
