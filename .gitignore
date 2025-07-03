@@ -24,3 +24,4 @@ hs_err_pid*
 replay_pid*
 /fusion-parent.iml
 /.idea/
+/fusion-core/target/

@@ -73,6 +73,7 @@ under the License.
     <!-- POM子项目依赖 -->
     <modules>
         <!-- 这里的子库省略等后续展开说明 -->
+        <module>fusion-core</module>
     </modules>
 
 
@@ -88,6 +89,12 @@ under the License.
         <maven.compiler.source>${target.java.version}</maven.compiler.source>
         <maven.compiler.target>${target.java.version}</maven.compiler.target>
 
+        <!-- Apache工具集版本 -->
+        <commons-lang.version>3.17.0</commons-lang.version>
+        <commons-text.version>1.13.1</commons-text.version>
+        <commons-math.version>3.6.1</commons-math.version>
+        <commons-compress.version>1.27.1</commons-compress.version>
+        <commons-collections.version>4.4</commons-collections.version>
 
         <!-- 日志库版本锁定 -->
         <!-- Java日志 Facade 和实现 -->
@@ -153,6 +160,7 @@ under the License.
             <artifactId>log4j-core</artifactId>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
 
@@ -223,6 +231,39 @@ under the License.
                 <artifactId>scalatest_${scala.binary.version}</artifactId>
                 <version>${scala.test.version}</version>
                 <scope>test</scope>
+            </dependency>
+
+
+            <!-- apache 工具集 -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-text</artifactId>
+                <version>${commons-text.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-math3</artifactId>
+                <version>${commons-math.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-compress</artifactId>
+                <version>${commons-compress.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>${commons-collections.version}</version>
             </dependency>
 
         </dependencies>
