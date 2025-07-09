@@ -99,14 +99,14 @@ public class ConfigOption<T> {
     /**
      * 获取配置当中记录的值类型
      */
-    Class<?> getClazz() {
+    public Class<?> getClazz() {
         return clazz;
     }
 
     /**
      * 判断配置当中的值对象是否为列表对象
      */
-    boolean isList() {
+    public boolean isList() {
         return isList;
     }
 

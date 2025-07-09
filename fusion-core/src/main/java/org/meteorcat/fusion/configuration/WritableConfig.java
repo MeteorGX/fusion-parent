@@ -32,6 +32,6 @@ public interface WritableConfig {
      * @param <T>    type of the value to be stored
      * @return instance of this configuration for fluent API
      */
-    <T> WritableConfig set(ConfigOption<T> option, T value);
+    <T> Configuration set(ConfigOption<T> option, T value);
 
 }
